@@ -52,3 +52,13 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
   }),
 })
+
+require('packer').startup(function(use)
+    use({
+        'numToStr/Comment.nvim',
+        tag = 'v0.8.0',
+        config = function()
+            require('Comment').setup()
+        end,
+    })
+end)
