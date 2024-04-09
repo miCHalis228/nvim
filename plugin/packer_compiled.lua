@@ -74,6 +74,12 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    config = { "\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0" },
+    loaded = true,
+    path = "/home/mi_ch_alis/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
   LuaSnip = {
     loaded = true,
     path = "/home/mi_ch_alis/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -145,6 +151,15 @@ _G.packer_plugins = {
     path = "/home/mi_ch_alis/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["toggleterm.nvim"] = {
+    commands = { "ToggleTerm" },
+    config = { "\27LJ\2\nï\4\0\0\t\0\27\0R6\0\0\0009\0\1\0009\0\2\0005\1\3\0\18\2\0\0)\4\0\0'\5\4\0'\6\5\0'\a\6\0\18\b\1\0B\2\6\1\18\2\0\0)\4\0\0'\5\4\0'\6\a\0'\a\b\0\18\b\1\0B\2\6\1\18\2\0\0)\4\0\0'\5\4\0'\6\t\0'\a\n\0\18\b\1\0B\2\6\1\18\2\0\0)\4\0\0'\5\4\0'\6\v\0'\a\f\0\18\b\1\0B\2\6\1\18\2\0\0)\4\0\0'\5\4\0'\6\r\0'\a\14\0\18\b\1\0B\2\6\1\18\2\0\0)\4\0\0'\5\4\0'\6\15\0'\a\16\0\18\b\1\0B\2\6\1\18\2\0\0)\4\0\0'\5\4\0'\6\17\0'\a\18\0\18\b\1\0B\2\6\1\18\2\0\0)\4\0\0'\5\4\0'\6\19\0'\a\20\0\18\b\1\0B\2\6\1\18\2\0\0)\4\0\0'\5\4\0'\6\21\0'\a\22\0\18\b\1\0B\2\6\1\18\2\0\0)\4\0\0'\5\23\0'\6\24\0'\a\25\0\18\b\1\0B\2\6\1\18\2\0\0)\4\0\0'\5\23\0'\6\26\0'\a\25\0\18\b\1\0B\2\6\1K\0\1\0\f<S-Tab>\n<Nop>\n<Tab>\6n\24<cmd>wincmd 2< <cr>\r<A-Left>\24<cmd>wincmd 2- <cr>\r<A-Down>\24<cmd>wincmd 2+ <cr>\v<A-Up>\24<cmd>wincmd 2> <cr>\14<A-Right>\21<C-\\><C-n><C-W>l\n<A-l>\21<C-\\><C-n><C-W>k\n<A-k>\21<C-\\><C-n><C-W>j\n<A-j>\21<C-\\><C-n><C-W>h\n<A-h>\15<C-\\><C-n>\n<esc>\6t\1\0\1\fnoremap\2\24nvim_buf_set_keymap\bapi\bvimŸ\1\1\2\a\0\n\0\0153\2\0\0006\3\1\0009\3\2\0039\3\3\3'\5\4\0005\6\5\0=\2\6\6B\3\3\0016\3\a\0'\5\b\0B\3\2\0029\3\t\3\18\5\1\0B\3\2\1K\0\1\0\nsetup\15toggleterm\frequire\rcallback\1\0\1\fpattern\rterm://*\rTermOpen\24nvim_create_autocmd\bapi\bvim\0\0" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/home/mi_ch_alis/.local/share/nvim/site/pack/packer/opt/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
+  },
   undotree = {
     loaded = true,
     path = "/home/mi_ch_alis/.local/share/nvim/site/pack/packer/start/undotree",
@@ -162,6 +177,22 @@ time([[Defining packer_plugins]], false)
 time([[Config for everforest-nvim]], true)
 try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15everforest\frequire\0", "config", "everforest-nvim")
 time([[Config for everforest-nvim]], false)
+-- Config for: Comment.nvim
+time([[Config for Comment.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
+time([[Config for Comment.nvim]], false)
+
+-- Command lazy-loads
+time([[Defining lazy-load commands]], true)
+pcall(vim.api.nvim_create_user_command, 'ToggleTerm', function(cmdargs)
+          require('packer.load')({'toggleterm.nvim'}, { cmd = 'ToggleTerm', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+        end,
+        {nargs = '*', range = true, bang = true, complete = function()
+          require('packer.load')({'toggleterm.nvim'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('ToggleTerm ', 'cmdline')
+      end})
+time([[Defining lazy-load commands]], false)
+
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

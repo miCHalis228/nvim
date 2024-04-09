@@ -25,7 +25,7 @@ return require('packer').startup(function(use)
     use('ThePrimeagen/harpoon')
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
-    use {
+    use({
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
         requires = {
@@ -40,9 +40,43 @@ return require('packer').startup(function(use)
             {'hrsh7th/cmp-nvim-lsp'},
             {'L3MON4D3/LuaSnip'},
         }
-    }
-    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-        require("toggleterm").setup()
-    end}
+    })
+
+    use({"akinsho/toggleterm.nvim",
+    tag = '*',
+    opts = {
+        shading_factor = 0,
+        hide_numbers = true,
+    },
+    cmd="ToggleTerm",
+    config = function(_,opts)
+        local function set_terminal_keymaps()
+            local map = vim.api.nvim_buf_set_keymap
+            local map_opts = {
+                noremap = true,
+            }
+            map(0, "t", "<esc>", [[<C-\><C-n>]], map_opts)
+            map(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], map_opts)
+            map(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], map_opts)
+            map(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], map_opts)
+            map(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], map_opts)
+            map(0, "t", "<A-Right>", [[<cmd>wincmd 2> <cr>]], map_opts)
+            map(0, "t", "<A-Up>", [[<cmd>wincmd 2+ <cr>]], map_opts)
+            map(0, "t", "<A-Down>", [[<cmd>wincmd 2- <cr>]], map_opts)
+            map(0, "t", "<A-Left>", [[<cmd>wincmd 2< <cr>]], map_opts)
+            map(0, "n", "<Tab>", "<Nop>", map_opts)
+            map(0, "n", "<S-Tab>", "<Nop>", map_opts)
+        end
+        vim.api.nvim_create_autocmd("TermOpen", { pattern = "term://*", callback = set_terminal_keymaps })
+        require("toggleterm").setup(opts)
+    end
+})
+
+use({
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+})
 end)
 
