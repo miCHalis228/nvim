@@ -54,3 +54,13 @@ vim.keymap.set('n', '<leader>dh', vim.diagnostic.goto_prev, { desc = 'Go to prev
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+local function toCursor(input)
+    local result  = ""
+    local pattern = "(.*)%{%}(.*)"
+    local lhs, rhs = input:match(pattern)
+    local count   = #rhs
+    result        = lhs .. rhs .. string.rep("<Left>", count)
+    return result
+end
+vim.keymap.set('v', "<leader>rf", toCursor([["ry:%s/\(<c-r>r\)/{}/g]]), { desc = "replace selection everywhere" })
+vim.keymap.set('v', "<leader>ra", toCursor([["ry:.,$s/\(<c-r>r\)/{}/g]]), { desc = "replace selection everywhere" })
